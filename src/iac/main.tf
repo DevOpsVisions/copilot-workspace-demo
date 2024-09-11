@@ -118,4 +118,15 @@ resource "azurerm_virtual_machine" "vm" {
   os_profile_linux_config {
     disable_password_authentication = false
   }
+
+  provisioner "remote-exec" {
+    connection {
+      type        = "ssh"
+      user        = "azureuser"
+      password    = "Password1234!"
+      host        = azurerm_public_ip.pip.ip_address
+    }
+
+    script = "install-lamp.sh"
+  }
 }
